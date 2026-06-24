@@ -578,11 +578,26 @@ class _CreateIssuePageState extends State<CreateIssuePage> {
         type: _type,
         priority: _priority,
         meaningfulObjectives: {
-          'orgObjective': _orgObjCtrl.text,
-          'orgHow': _orgHowCtrl.text,
-          'orgMeasure': _orgMeasureCtrl.text,
-          'userOutcome': _userOutCtrl.text,
-          'modelProperty': _modelPropCtrl.text,
+          'organizational': {'obj': _orgObjCtrl.text, 'how': _orgHowCtrl.text, 'measure': _orgMeasureCtrl.text},
+          'leading_indicators': _indicators.map((e) => {'col1': e[0].text, 'col2': e[1].text, 'col3': e[2].text}).toList(),
+          'user_outcomes': {'obj': _userOutCtrl.text, 'how': _userHowCtrl.text, 'measure': _userMeasureCtrl.text},
+          'model_properties': {'obj': _modelPropCtrl.text, 'how': _modelHowCtrl.text, 'measure': _modelMeasureCtrl.text},
+        },
+        intelligenceExperience: {
+          'presentation': {
+            'automate': _presentations.contains('Automate'),
+            'prompt': _presentations.contains('Prompt'),
+            'organisation': _presentations.contains('Organisation'),
+            'annotate': _presentations.contains('Annotate'),
+            'desc': ''
+          },
+          'functions': _functions.map((e) => {'col1': e[0].text, 'col2': e[1].text}).toList(),
+          'error_mitigation': _errorMitigation.map((e) => {'col1': e[0].text, 'col2': e[1].text}).toList(),
+          'data_collection': _dataCollection.map((e) => {'col1': e[0].text, 'col2': e[1].text}).toList(),
+        },
+        intelligenceImplementation: {
+          'business_process': _processes.map((e) => {'col1': e[0].text, 'col2': e[1].text}).toList(),
+          'technology': _technologies.map((e) => {'col1': e[0].text, 'col2': e[1].text}).toList(),
         }
       );
       if (mounted) {

@@ -56,7 +56,7 @@ class _IssueDetailPageState extends State<IssueDetailPage> {
           1: 'Belum ada data Intelligence Experiences.',
           2: 'Belum ada data Intelligence Implementation.',
           3: 'Status saat ini: ${data['creation_progress'] ?? 0}%',
-          4: 'Belum ada data Orchestration.',
+          4: _buildOrchestration(data),
         };
         _loading = false;
       });
@@ -64,6 +64,17 @@ class _IssueDetailPageState extends State<IssueDetailPage> {
       if (!mounted) return;
       setState(() { _error = e.toString(); _loading = false; });
     }
+  }
+
+  String _buildOrchestration(Map<String, dynamic> data) {
+    final status = data['creation_status'];
+    if (status == null || status is! Map) return 'Belum ada data Orchestration.';
+    final orch = status['orchestration'];
+    if (orch == null || orch is! List || orch.isEmpty) return 'Belum ada data Orchestration.';
+    
+    return (orch as List).map((o) {
+      return '■ ${o['category'] ?? '-'}\n   Status: ${o['status'] ?? '-'}\n   Created At: ${o['created_at'] ?? '-'}';
+    }).join('\n\n');
   }
 
   @override
